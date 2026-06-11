@@ -1,12 +1,12 @@
-import express from 'express';
-
-
-
+import express from "express";
+import env from "./config/env.js";
+import morgan from "morgan";
 
 export default function createApp() {
-    const app = express();
+  const app = express();
 
+  if (env.NODE_ENV === "development") app.use(morgan);
+  
 
-
-    return app;
+  return app;
 }
