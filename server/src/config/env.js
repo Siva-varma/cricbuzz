@@ -1,16 +1,17 @@
 import dotenv, { parse } from "dotenv";
 dotenv.config();
 import z from "zod";
+import logger from "./logger.js";
 
 const envSchema = z.object({
   PORT: z.coerce.number(),
   MONGO_URL: z.string(),
 });
 
-const parsed = envSchema.parse(process.env);
+const parsed = envSchema.safeParse(process.env);
 
 if (!parsed.success) {
-  console.log("check your env's");
+  logger.error("check your env's");
 }
 
-export default parsed;
+export default parsed.data;
