@@ -5,8 +5,17 @@ import morgan from "morgan";
 export default function createApp() {
   const app = express();
 
-  if (env.NODE_ENV === "development") app.use(morgan);
-  
+  if (env.NODE_ENV === "development") {
+    app.use(morgan('dev'));
+  }
+
+  // health route
+  app.get("/health", (req, res) => {
+    res.json({
+      success: true,
+      message: "healthy",
+    });
+  });
 
   return app;
 }
